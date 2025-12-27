@@ -132,185 +132,198 @@ const Dashboard = () => {
 
             <div className="adminuiux-wrap">
                 <main className="adminuiux-content" style={{ marginTop: '80px' }}>
-                    {/* Breadcrumb */}
-                    <div className="container mt-3">
-                        <div className="row gx-3 align-items-center py-4">
-                            <div className="col mb-3">
-                                <h5>Finance Billing</h5>
-                                <p className="text-secondary small mb-0">Manage your income and expenses</p>
-                            </div>
-                            <div className="col-auto mb-3">
-                                <button
-                                    className="btn btn-theme"
-                                    onClick={() => {
-                                        setEditingTransaction(null);
-                                        setShowForm(true);
-                                    }}
-                                >
-                                    <i className="bi bi-plus-circle me-2"></i>
-                                    Add Transaction
-                                </button>
+                    {loading ? (
+                        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '70vh' }}>
+                            <div className="text-center">
+                                <div className="spinner-border text-theme-1" role="status" style={{ width: '3rem', height: '3rem' }}>
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                                <p className="mt-3 text-secondary">Loading transactions...</p>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Summary Cards */}
-                    <div className="container mt-3">
-                        <div className="row gx-3 gx-lg-4">
-                            <div className="col-6 col-md-4">
-                                <div className="card bg-none mb-3 mb-lg-4">
-                                    <div className="card-body">
-                                        <p className="text-secondary small mb-0">Total Income</p>
-                                        <h4 className="mb-0 text-success">{formatCurrency(summary.totalMasuk)}</h4>
-                                        <span className="badge badge-sm badge-light text-bg-success">
-                                            <i className="bi bi-arrow-down-circle"></i> Masuk
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-6 col-md-4">
-                                <div className="card bg-none mb-3 mb-lg-4">
-                                    <div className="card-body">
-                                        <p className="text-secondary small mb-0">Total Expense</p>
-                                        <h4 className="mb-0 text-danger">{formatCurrency(summary.totalKeluar)}</h4>
-                                        <span className="badge badge-sm badge-light text-bg-danger">
-                                            <i className="bi bi-arrow-up-circle"></i> Keluar
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-12 col-md-4">
-                                <div className="card bg-none mb-3 mb-lg-4">
-                                    <div className="card-body">
-                                        <p className="text-secondary small mb-0">Balance</p>
-                                        <h4 className={`mb-0 ${summary.saldo >= 0 ? 'text-success' : 'text-danger'}`}>
-                                            {formatCurrency(summary.saldo)}
-                                        </h4>
-                                        <span className="badge badge-sm badge-light text-bg-primary">
-                                            <i className="bi bi-wallet2"></i> Saldo
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Transactions Table */}
-                    <div className="container mt-3">
-                        <div className="card bg-none mb-3 mb-lg-4">
-                            <div className="card-body pb-0">
-                                <div className="row gx-3 align-items-center">
-                                    <div className="col-auto mb-3">
-                                        <div className="avatar avatar-50 rounded card">
-                                            <i className="bi bi-arrow-down-up"></i>
-                                        </div>
-                                    </div>
+                    ) : (
+                        <>
+                            {/* Breadcrumb */}
+                            <div className="container mt-3">
+                                <div className="row gx-3 align-items-center py-4">
                                     <div className="col mb-3">
-                                        <h6 className="mb-0">Transactions</h6>
-                                        <p className="small text-secondary">Total: {transactions.length} transactions</p>
+                                        <h5>Finance Billing</h5>
+                                        <p className="text-secondary small mb-0">Manage your income and expenses</p>
                                     </div>
-                                    <div className="col-6 col-md-4 col-lg-3 col-xl-auto mb-3">
-                                        <div className="input-group">
-                                            <span className="input-group-text bg-none">
-                                                <i className="bi bi-search"></i>
-                                            </span>
-                                            <input
-                                                className="form-control pe-0 bg-none"
-                                                type="search"
-                                                placeholder="Search..."
-                                                value={searchTerm}
-                                                onChange={(e) => setSearchTerm(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-4 col-md-4 col-lg-3 col-xl-auto mb-3">
-                                        <select
-                                            className="form-select bg-none"
-                                            value={filterType}
-                                            onChange={(e) => setFilterType(e.target.value)}
+                                    <div className="col-auto mb-3">
+                                        <button
+                                            className="btn btn-theme"
+                                            onClick={() => {
+                                                setEditingTransaction(null);
+                                                setShowForm(true);
+                                            }}
                                         >
-                                            <option value="">All</option>
-                                            <option value="masuk">Income</option>
-                                            <option value="keluar">Expense</option>
-                                        </select>
+                                            <i className="bi bi-plus-circle me-2"></i>
+                                            Add Transaction
+                                        </button>
                                     </div>
-                                </div>
-
-                                <div className="table-responsive">
-                                    <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Type</th>
-                                                <th>Amount</th>
-                                                <th>Description</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {filteredTransactions.length === 0 ? (
-                                                <tr>
-                                                    <td colSpan="5" className="text-center">
-                                                        No transactions found
-                                                    </td>
-                                                </tr>
-                                            ) : (
-                                                filteredTransactions.map((transaction) => (
-                                                    <tr key={transaction.id}>
-                                                        <td>
-                                                            <p className="mb-0">{formatDate(transaction.tanggal)}</p>
-                                                        </td>
-                                                        <td>
-                                                            <span
-                                                                className={`badge ${transaction.tipe === 'masuk'
-                                                                    ? 'text-bg-success'
-                                                                    : 'text-bg-danger'
-                                                                    }`}
-                                                            >
-                                                                {transaction.tipe === 'masuk' ? (
-                                                                    <><i className="bi bi-arrow-down-circle"></i> Income</>
-                                                                ) : (
-                                                                    <><i className="bi bi-arrow-up-circle"></i> Expense</>
-                                                                )}
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <p className={`mb-0 fw-bold ${transaction.tipe === 'masuk' ? 'text-success' : 'text-danger'
-                                                                }`}>
-                                                                {formatCurrency(transaction.jumlah)}
-                                                            </p>
-                                                        </td>
-                                                        <td>
-                                                            <p className="mb-0">{transaction.keterangan || '-'}</p>
-                                                        </td>
-                                                        <td>
-                                                            <button
-                                                                className="btn btn-sm btn-square btn-link text-theme-1"
-                                                                onClick={() => {
-                                                                    setEditingTransaction(transaction);
-                                                                    setShowForm(true);
-                                                                }}
-                                                            >
-                                                                <i className="bi bi-pencil"></i>
-                                                            </button>
-                                                            <button
-                                                                className="btn btn-sm btn-square btn-link text-danger"
-                                                                onClick={() => handleDeleteTransaction(transaction.id)}
-                                                            >
-                                                                <i className="bi bi-trash"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                ))
-                                            )}
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+
+                            {/* Summary Cards */}
+                            <div className="container mt-3">
+                                <div className="row gx-3 gx-lg-4">
+                                    <div className="col-6 col-md-4">
+                                        <div className="card bg-none mb-3 mb-lg-4">
+                                            <div className="card-body">
+                                                <p className="text-secondary small mb-0">Total Income</p>
+                                                <h4 className="mb-0 text-success">{formatCurrency(summary.totalMasuk)}</h4>
+                                                <span className="badge badge-sm badge-light text-bg-success">
+                                                    <i className="bi bi-arrow-down-circle"></i> Masuk
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-6 col-md-4">
+                                        <div className="card bg-none mb-3 mb-lg-4">
+                                            <div className="card-body">
+                                                <p className="text-secondary small mb-0">Total Expense</p>
+                                                <h4 className="mb-0 text-danger">{formatCurrency(summary.totalKeluar)}</h4>
+                                                <span className="badge badge-sm badge-light text-bg-danger">
+                                                    <i className="bi bi-arrow-up-circle"></i> Keluar
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-12 col-md-4">
+                                        <div className="card bg-none mb-3 mb-lg-4">
+                                            <div className="card-body">
+                                                <p className="text-secondary small mb-0">Balance</p>
+                                                <h4 className={`mb-0 ${summary.saldo >= 0 ? 'text-success' : 'text-danger'}`}>
+                                                    {formatCurrency(summary.saldo)}
+                                                </h4>
+                                                <span className="badge badge-sm badge-light text-bg-primary">
+                                                    <i className="bi bi-wallet2"></i> Saldo
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Transactions Table */}
+                            <div className="container mt-3">
+                                <div className="card bg-none mb-3 mb-lg-4">
+                                    <div className="card-body pb-0">
+                                        <div className="row gx-3 align-items-center">
+                                            <div className="col-auto mb-3">
+                                                <div className="avatar avatar-50 rounded card">
+                                                    <i className="bi bi-arrow-down-up"></i>
+                                                </div>
+                                            </div>
+                                            <div className="col mb-3">
+                                                <h6 className="mb-0">Transactions</h6>
+                                                <p className="small text-secondary">Total: {transactions.length} transactions</p>
+                                            </div>
+                                            <div className="col-6 col-md-4 col-lg-3 col-xl-auto mb-3">
+                                                <div className="input-group">
+                                                    <span className="input-group-text bg-none">
+                                                        <i className="bi bi-search"></i>
+                                                    </span>
+                                                    <input
+                                                        className="form-control pe-0 bg-none"
+                                                        type="search"
+                                                        placeholder="Search..."
+                                                        value={searchTerm}
+                                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-4 col-md-4 col-lg-3 col-xl-auto mb-3">
+                                                <select
+                                                    className="form-select bg-none"
+                                                    value={filterType}
+                                                    onChange={(e) => setFilterType(e.target.value)}
+                                                >
+                                                    <option value="">All</option>
+                                                    <option value="masuk">Income</option>
+                                                    <option value="keluar">Expense</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div className="table-responsive">
+                                            <table className="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Type</th>
+                                                        <th>Amount</th>
+                                                        <th>Description</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {filteredTransactions.length === 0 ? (
+                                                        <tr>
+                                                            <td colSpan="5" className="text-center">
+                                                                No transactions found
+                                                            </td>
+                                                        </tr>
+                                                    ) : (
+                                                        filteredTransactions.map((transaction) => (
+                                                            <tr key={transaction.id}>
+                                                                <td>
+                                                                    <p className="mb-0">{formatDate(transaction.tanggal)}</p>
+                                                                </td>
+                                                                <td>
+                                                                    <span
+                                                                        className={`badge ${transaction.tipe === 'masuk'
+                                                                            ? 'text-bg-success'
+                                                                            : 'text-bg-danger'
+                                                                            }`}
+                                                                    >
+                                                                        {transaction.tipe === 'masuk' ? (
+                                                                            <><i className="bi bi-arrow-down-circle"></i> Income</>
+                                                                        ) : (
+                                                                            <><i className="bi bi-arrow-up-circle"></i> Expense</>
+                                                                        )}
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <p className={`mb-0 fw-bold ${transaction.tipe === 'masuk' ? 'text-success' : 'text-danger'
+                                                                        }`}>
+                                                                        {formatCurrency(transaction.jumlah)}
+                                                                    </p>
+                                                                </td>
+                                                                <td>
+                                                                    <p className="mb-0">{transaction.keterangan || '-'}</p>
+                                                                </td>
+                                                                <td>
+                                                                    <button
+                                                                        className="btn btn-sm btn-square btn-link text-theme-1"
+                                                                        onClick={() => {
+                                                                            setEditingTransaction(transaction);
+                                                                            setShowForm(true);
+                                                                        }}
+                                                                    >
+                                                                        <i className="bi bi-pencil"></i>
+                                                                    </button>
+                                                                    <button
+                                                                        className="btn btn-sm btn-square btn-link text-danger"
+                                                                        onClick={() => handleDeleteTransaction(transaction.id)}
+                                                                    >
+                                                                        <i className="bi bi-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        ))
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </main>
             </div>
 
