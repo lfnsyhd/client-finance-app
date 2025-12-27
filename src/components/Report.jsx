@@ -213,6 +213,17 @@ const Report = () => {
 
             <div className="adminuiux-wrap">
                 <main className="adminuiux-content" style={{ marginTop: '80px' }}>
+                    {loading && (
+                        <div className="position-fixed top-0 start-0 w-100 vh-100 d-flex justify-content-center align-items-center bg-white-opac" style={{ zIndex: 1050, backdropFilter: 'blur(5px)' }}>
+                            <div className="text-center">
+                                <div className="spinner-border text-theme-1" role="status" style={{ width: '3.5rem', height: '3.5rem' }}>
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                                <h5 className="mt-4 text-theme-1">Generating Report</h5>
+                                <p className="text-secondary">Please wait while we prepare your PDF...</p>
+                            </div>
+                        </div>
+                    )}
                     <div className="container mt-3">
                         <div className="row gx-3 align-items-center mb-4 py-4">
                             <div className="col mb-3">

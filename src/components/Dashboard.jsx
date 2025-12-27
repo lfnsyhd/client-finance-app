@@ -153,12 +153,13 @@ const Dashboard = () => {
             <div className="adminuiux-wrap">
                 <main className="adminuiux-content" style={{ marginTop: '80px' }}>
                     {loading ? (
-                        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '70vh' }}>
+                        <div className="position-fixed top-0 start-0 w-100 vh-100 d-flex justify-content-center align-items-center bg-white-opac" style={{ zIndex: 1050, backdropFilter: 'blur(5px)' }}>
                             <div className="text-center">
-                                <div className="spinner-border text-theme-1" role="status" style={{ width: '3rem', height: '3rem' }}>
+                                <div className="spinner-border text-theme-1" role="status" style={{ width: '3.5rem', height: '3.5rem' }}>
                                     <span className="visually-hidden">Loading...</span>
                                 </div>
-                                <p className="mt-3 text-secondary">Loading transactions...</p>
+                                <h5 className="mt-4 text-theme-1">Loading Application</h5>
+                                <p className="text-secondary">Please wait a moment...</p>
                             </div>
                         </div>
                     ) : (
