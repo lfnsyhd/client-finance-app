@@ -6,14 +6,13 @@ const ProtectedRoute = ({ children }) => {
 
     if (loading) {
         return (
-            <div className="pageloader">
-                <div className="container h-100">
-                    <div className="row justify-content-center align-items-center text-center h-100">
-                        <div className="col-auto">
-                            <div className="loader5 mb-2 mx-auto"></div>
-                            <p className="small text-secondary">Loading...</p>
-                        </div>
+            <div className="position-fixed top-0 start-0 w-100 vh-100 d-flex justify-content-center align-items-center bg-white" style={{ zIndex: 1060, backdropFilter: 'blur(5px)' }}>
+                <div className="text-center">
+                    <div className="spinner-border text-theme-1" role="status" style={{ width: '3.5rem', height: '3.5rem' }}>
+                        <span className="visually-hidden">Loading...</span>
                     </div>
+                    <h5 className="mt-4 text-theme-1">Authenticating</h5>
+                    <p className="text-secondary">Please wait...</p>
                 </div>
             </div>
         );
