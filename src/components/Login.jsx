@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logoImg from '../assets/img/dollar.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -33,7 +34,7 @@ const Login = () => {
                 <nav className="navbar">
                     <div className="container-fluid">
                         <a className="navbar-brand" href="#">
-                            <img src="/src/assets/img/dollar.png" alt="Logo" className="avatar avatar-30" />
+                            <img src={logoImg} alt="Logo" className="avatar avatar-30" />
                             <div className="d-block ps-2">
                                 <h6 className="fs-6 mb-0">Finance<span className="fs-6">App</span></h6>
                                 <p className="company-tagline">Track Your Money</p>

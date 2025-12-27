@@ -4,6 +4,7 @@ import { transactionsAPI } from '../services/api';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
+import logoImg from '../assets/img/dollar.png';
 
 const Report = () => {
     const { user, logout } = useAuth();
@@ -189,7 +190,7 @@ const Report = () => {
                 <nav className="navbar navbar-expand-lg fixed-top">
                     <div className="container-fluid">
                         <a className="navbar-brand" href="#">
-                            <img src="/src/assets/img/dollar.png" alt="" className="avatar avatar-30" />
+                            <img src={logoImg} alt="Logo" className="avatar avatar-30" />
                             <div className="d-block ps-2">
                                 <h6 className="fs-6 mb-0">Finance<span className="fs-6">App</span></h6>
                                 <p className="company-tagline">Report</p>
