@@ -1,0 +1,22 @@
+{
+    "short_name": "Finance",
+    "name": "Finance Tracking",
+    "description": "Track your income and expenses with our easy-to-use finance tracking application",
+    "icons": [
+        {
+            "src": "logo.jpg",
+            "type": "image/jpeg",
+            "sizes": "192x192"
+        },
+        {
+            "src": "logo.jpg",
+            "type": "image/jpeg",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/dashboard",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#ffffff"
+}
