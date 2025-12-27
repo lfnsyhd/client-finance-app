@@ -98,10 +98,10 @@ const Dashboard = () => {
 
         if (absNum >= 1000000000) {
             // Milyar (Billion)
-            return `Rp ${(num / 1000000000).toFixed(1)}M`;
+            return `Rp ${parseFloat((num / 1000000000).toFixed(1))}M`;
         } else if (absNum >= 1000000) {
             // Juta (Million)  
-            return `Rp ${(num / 1000000).toFixed(1)}JT`;
+            return `Rp ${parseFloat((num / 1000000).toFixed(1))}JT`;
         } else if (absNum >= 1000) {
             // Ribu (Thousand)
             return `Rp ${(num / 1000).toFixed(0)}K`;
@@ -126,7 +126,7 @@ const Dashboard = () => {
         <div className="main-bg main-bg-opac main-bg-blur roundedui theme-pista bg-r-gradient" data-theme="theme-pista">
             {/* Header */}
             <header className="adminuiux-header">
-                <nav className="navbar navbar-expand-lg fixed-top">
+                <nav className="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
                     <div className="container-fluid">
                         <a className="navbar-brand" href="#">
                             <img src={logoImg} alt="Logo" className="avatar avatar-30" />

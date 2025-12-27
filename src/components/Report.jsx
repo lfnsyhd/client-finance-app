@@ -187,7 +187,7 @@ const Report = () => {
         <div className="main-bg main-bg-opac main-bg-blur roundedui theme-pista bg-r-gradient" data-theme="theme-pista">
             {/* Header */}
             <header className="adminuiux-header">
-                <nav className="navbar navbar-expand-lg fixed-top">
+                <nav className="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
                     <div className="container-fluid">
                         <a className="navbar-brand" href="#">
                             <img src={logoImg} alt="Logo" className="avatar avatar-30" />
