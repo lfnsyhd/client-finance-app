@@ -4,7 +4,7 @@ import { transactionsAPI } from '../services/api';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
-import logoImg from '../assets/img/dollar.png';
+import logoImg from '../assets/img/dollar-gold.jpg';
 
 const Report = () => {
     const { user, logout } = useAuth();

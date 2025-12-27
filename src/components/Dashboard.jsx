@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { transactionsAPI } from '../services/api';
 import TransactionForm from './TransactionForm';
-import logoImg from '../assets/img/dollar.png';
+import logoImg from '../assets/img/dollar-gold.jpg';
 
 const Dashboard = () => {
     const { user, logout } = useAuth();
