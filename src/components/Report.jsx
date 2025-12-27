@@ -193,16 +193,18 @@ const Report = () => {
                             <img src={logoImg} alt="Logo" className="avatar avatar-30" />
                             <div className="d-block ps-2">
                                 <h6 className="fs-6 mb-0">Finance<span className="fs-6">App</span></h6>
-                                <p className="company-tagline">Report</p>
+                                <p className="company-tagline d-none d-sm-block">Report</p>
                             </div>
                         </a>
-                        <div className="ms-auto">
-                            <button className="btn btn-sm btn-outline-theme me-2" onClick={() => navigate('/dashboard')}>
-                                <i className="bi bi-arrow-left me-1"></i> Back to Dashboard
+                        <div className="ms-auto d-flex align-items-center gap-1 gap-sm-2">
+                            <button className="btn btn-sm btn-outline-theme" onClick={() => navigate('/dashboard')} title="Back to Dashboard">
+                                <i className="bi bi-arrow-left"></i>
+                                <span className="d-none d-md-inline ms-1">Back</span>
                             </button>
-                            <span className="text-theme-1 me-3">Welcome, {user?.email}</span>
-                            <button className="btn btn-sm btn-outline-theme" onClick={handleLogout}>
-                                <i className="bi bi-box-arrow-right me-1"></i> Logout
+                            <span className="text-theme-1 d-none d-lg-inline me-2" style={{ fontSize: '0.875rem' }}>Welcome, {user?.email}</span>
+                            <button className="btn btn-sm btn-outline-theme" onClick={handleLogout} title="Logout">
+                                <i className="bi bi-box-arrow-right"></i>
+                                <span className="d-none d-sm-inline ms-1">Logout</span>
                             </button>
                         </div>
                     </div>
