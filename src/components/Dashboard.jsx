@@ -90,6 +90,26 @@ const Dashboard = () => {
         }).format(amount);
     };
 
+    // Format number to compact form (270K, 2.5JT, 2M)
+    const formatCompactCurrency = (num) => {
+        if (!num || num === 0) return 'Rp 0';
+
+        const absNum = Math.abs(num);
+
+        if (absNum >= 1000000000) {
+            // Milyar (Billion)
+            return `Rp ${(num / 1000000000).toFixed(1)}M`;
+        } else if (absNum >= 1000000) {
+            // Juta (Million)  
+            return `Rp ${(num / 1000000).toFixed(1)}JT`;
+        } else if (absNum >= 1000) {
+            // Ribu (Thousand)
+            return `Rp ${(num / 1000).toFixed(0)}K`;
+        } else {
+            return `Rp ${num.toLocaleString('id-ID')}`;
+        }
+    };
+
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString('id-ID', {
             day: 'numeric',
@@ -172,7 +192,7 @@ const Dashboard = () => {
                                         <div className="card bg-none mb-3 mb-lg-4">
                                             <div className="card-body">
                                                 <p className="text-secondary small mb-0">Total Income</p>
-                                                <h4 className="mb-0 text-success">{formatCurrency(summary.totalMasuk)}</h4>
+                                                <h4 className="mb-0 text-success">{formatCompactCurrency(summary.totalMasuk)}</h4>
                                                 <span className="badge badge-sm badge-light text-bg-success">
                                                     <i className="bi bi-arrow-down-circle"></i> Masuk
                                                 </span>
@@ -184,7 +204,7 @@ const Dashboard = () => {
                                         <div className="card bg-none mb-3 mb-lg-4">
                                             <div className="card-body">
                                                 <p className="text-secondary small mb-0">Total Expense</p>
-                                                <h4 className="mb-0 text-danger">{formatCurrency(summary.totalKeluar)}</h4>
+                                                <h4 className="mb-0 text-danger">{formatCompactCurrency(summary.totalKeluar)}</h4>
                                                 <span className="badge badge-sm badge-light text-bg-danger">
                                                     <i className="bi bi-arrow-up-circle"></i> Keluar
                                                 </span>
@@ -197,7 +217,7 @@ const Dashboard = () => {
                                             <div className="card-body">
                                                 <p className="text-secondary small mb-0">Balance</p>
                                                 <h4 className={`mb-0 ${summary.saldo >= 0 ? 'text-success' : 'text-danger'}`}>
-                                                    {formatCurrency(summary.saldo)}
+                                                    {formatCompactCurrency(summary.saldo)}
                                                 </h4>
                                                 <span className="badge badge-sm badge-light text-bg-primary">
                                                     <i className="bi bi-wallet2"></i> Saldo
