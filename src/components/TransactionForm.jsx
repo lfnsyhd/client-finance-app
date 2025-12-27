@@ -1,5 +1,16 @@
 import { useState } from 'react';
 
+// Format number with thousand separators
+const formatNumber = (num) => {
+    if (!num) return '';
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};
+
+// Remove formatting and get raw number
+const parseNumber = (str) => {
+    return str.replace(/\./g, '');
+};
+
 const TransactionForm = ({ transaction, onSave, onCancel }) => {
     const [formData, setFormData] = useState({
         tanggal: transaction?.tanggal || new Date().toISOString().split('T')[0],
@@ -7,12 +18,22 @@ const TransactionForm = ({ transaction, onSave, onCancel }) => {
         jumlah: transaction?.jumlah || '',
         keterangan: transaction?.keterangan || '',
     });
+    const [displayAmount, setDisplayAmount] = useState(
+        transaction?.jumlah ? formatNumber(transaction.jumlah) : ''
+    );
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        if (name === 'jumlah') {
+            // Remove non-numeric characters except digits
+            const rawValue = value.replace(/[^\d]/g, '');
+            setFormData(prev => ({ ...prev, jumlah: rawValue }));
+            setDisplayAmount(formatNumber(rawValue));
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -79,16 +100,16 @@ const TransactionForm = ({ transaction, onSave, onCancel }) => {
                             <div className="mb-3">
                                 <label htmlFor="jumlah" className="form-label">Jumlah (Rp)</label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     className="form-control"
                                     id="jumlah"
                                     name="jumlah"
-                                    value={formData.jumlah}
+                                    value={displayAmount}
                                     onChange={handleChange}
-                                    min="0"
-                                    step="0.01"
+                                    placeholder="e.g., 200.000.000"
                                     required
                                 />
+                                <small className="text-muted">Enter amount without separators, they will be added automatically</small>
                             </div>
 
                             <div className="mb-3">
