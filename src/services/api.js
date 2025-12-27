@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://service-finance-4yk16s85v-lfnsyhds-projects.vercel.app/api';
+const API_URL = 'https://service-finance-app.vercel.app/api';
 
 // Create axios instance
 const api = axios.create({
